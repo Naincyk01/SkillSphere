@@ -1,72 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import logo from "../assests/image/logo-new (1).svg";
 import { IoMdArrowDropdown } from "react-icons/io";
+import logo from "../assests/image/logo-new (1).svg";
 
 const Header = () => {
-  const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
-  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
-  const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  
 
-  const toggleDropdown1 = () => {
-    setIsDropdownOpen1(!isDropdownOpen1);
-  };
-
-  const closeDropdown1 = () => {
-    setIsDropdownOpen1(false);
-  };
-  const toggleDropdown2 = () => {
-    setIsDropdownOpen2(!isDropdownOpen2);
+  const toggleDropdown = (dropdownId) => {
+    setActiveDropdown(activeDropdown === dropdownId ? null : dropdownId);
   };
 
-  const closeDropdown2 = () => {
-    setIsDropdownOpen2(false);
-  };
-  const toggleDropdown3 = () => {
-    setIsDropdownOpen3(!isDropdownOpen3);
+  const closeDropdown = () => {
+    setActiveDropdown(null);
   };
 
-  const closeDropdown3 = () => {
-    setIsDropdownOpen3(false);
-  };
+
+
   return (
     <div className="flex w-full border-b h-12 text-sm justify-center px-[5rem]">
-      <div className='flex w-full justify-between items-center'>
+      <div className="flex w-full justify-between items-center">
         <div className="flex">
           <a href="/">
-            <img src={logo} />
+            <img src={logo} alt="Logo" />
           </a>
         </div>
 
         <div className="">
-          <ul className="flex w-full justify-end gap-11 font-medium text-gray-600">
+        <ul className="flex w-full justify-end gap-11 font-medium text-gray-600 max-lg:hidden">
             <li className="text-sm cursor-pointer">
-              <span onClick={toggleDropdown1} className="flex gap-1">
+              <span
+                onClick={() => toggleDropdown("explore")}
+                className="flex gap-1"
+              >
                 <div>Explore</div>
                 <div className="flex justify-center items-center">
                   <IoMdArrowDropdown />
                 </div>
               </span>
-              {isDropdownOpen1 && (
-                <ul className="absolute mt-8 bg-white shadow-md">
+              {activeDropdown === "explore" && (
+                <ul className="absolute mt-4 shadow-md w-[160px] flex flex-col justify-start px-[1rem] h-[135px] gap-y-4 rounded-lg border-[1px] border-gray-200 bg-white">
                   <li>
-                    <Link to="/explore/course" onClick={closeDropdown1}>
+                    <Link to="/" onClick={closeDropdown}>
                       Course
                     </Link>
                   </li>
                   <li>
-                    <Link to="/explore/statistics" onClick={closeDropdown1}>
+                    <Link to="/statistics" onClick={closeDropdown}>
                       Statistics
                     </Link>
                   </li>
                   <li>
-                    <Link to="/explore/job" onClick={closeDropdown1}>
+                    <Link to="/job" onClick={closeDropdown}>
                       Job
                     </Link>
                   </li>
                   <li>
-                    <Link to="/explore/people" onClick={closeDropdown1}>
+                    <Link to="/people" onClick={closeDropdown}>
                       People
                     </Link>
                   </li>
@@ -74,21 +64,24 @@ const Header = () => {
               )}
             </li>
             <li className="text-sm cursor-pointer">
-              <span onClick={toggleDropdown2} className="flex gap-1">
+              <span
+                onClick={() => toggleDropdown("certifications")}
+                className="flex gap-1"
+              >
                 <div>Certifications</div>
                 <div className="flex justify-center items-center">
                   <IoMdArrowDropdown />
                 </div>
               </span>
-              {isDropdownOpen2 && (
-                <ul className="absolute mt-8 bg-white shadow-md">
+              {activeDropdown === "certifications" && (
+                <ul className="absolute mt-4 shadow-md w-[160px] flex flex-col justify-start px-[1rem] h-[135px] gap-y-4 rounded-lg border-[1px] border-gray-200 bg-white">
                   <li>
-                    <Link to="/explore/course" onClick={closeDropdown2}>
+                    <Link to="/" onClick={closeDropdown}>
                       Course
                     </Link>
                   </li>
                   <li>
-                    <Link to="/explore/statistics" onClick={closeDropdown2}>
+                    <Link to="/" onClick={closeDropdown}>
                       Statistics
                     </Link>
                   </li>
@@ -96,21 +89,24 @@ const Header = () => {
               )}
             </li>
             <li className="text-sm cursor-pointer">
-              <span onClick={toggleDropdown3} className="flex gap-1">
+              <span
+                onClick={() => toggleDropdown("courseCreation")}
+                className="flex gap-1"
+              >
                 <div>Course Creation</div>
                 <div className="flex justify-center items-center">
                   <IoMdArrowDropdown />
                 </div>
               </span>
-              {isDropdownOpen3 && (
-                <ul className="absolute mt-8 bg-white shadow-md">
+              {activeDropdown === "courseCreation" && (
+                <ul className="absolute mt-4 shadow-md w-[160px] flex flex-col justify-start px-[1rem] h-[135px] gap-y-4 rounded-lg border-[1px] border-gray-200 bg-white">
                   <li>
-                    <Link to="/explore/job" onClick={closeDropdown3}>
+                    <Link to="/job" onClick={closeDropdown}>
                       Job
                     </Link>
                   </li>
                   <li>
-                    <Link to="/explore/people" onClick={closeDropdown3}>
+                    <Link to="/people" onClick={closeDropdown}>
                       People
                     </Link>
                   </li>
@@ -118,13 +114,13 @@ const Header = () => {
               )}
             </li>
             <li className="text-sm">
-              <Link to="/about">About</Link>
+              About Us
             </li>
             <li className="text-sm">
-              <Link to="/blog">Blog</Link>
+              Blog
             </li>
             <li className="text-sm">
-              <Link to="/login">Login</Link>
+              Login
             </li>
           </ul>
         </div>
